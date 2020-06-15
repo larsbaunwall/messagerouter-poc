@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EasyNetQ;
@@ -28,6 +30,8 @@ namespace DeferralService.Services
         {            
             var messages = _repo.GetExpiredMessages(DateTimeOffset.Now);
 
+            Console.WriteLine($"Enqueing {messages.Count()} messages");
+            
             foreach (var (id, message) in messages)
             {
                 _messageBus.Publish(message, message.RecipientQueue);

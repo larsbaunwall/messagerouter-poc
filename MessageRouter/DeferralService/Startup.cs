@@ -27,7 +27,7 @@ namespace DeferralService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.RegisterEasyNetQ("");
+            services.RegisterEasyNetQ("host=localhost:32772;username=guest;password=guest;product=Deferrer");
 
             services.AddSingleton<IDeferralRepository, DeferralRepository>();
             

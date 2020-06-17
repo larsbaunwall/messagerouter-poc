@@ -1,4 +1,5 @@
 ﻿using System;
+using EasyNetQ;
 using EventConsumer.EventHandlers;
 using EventConsumer.Messages;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,10 +18,11 @@ namespace EventConsumer
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.RegisterEasyNetQ("host=localhost:32771;username=guest;password=guest;product=EventConsumer1");
+                    services.RegisterEasyNetQ("host=localhost:32779;username=guest;password=guest;product=EventConsumer1");
 
+                    services.AddScoped<IConventions, RabbitConventions>();
                     services.AddScoped<IEventDispatcher, EventDispatcher>();
-                    services.AddScoped<IEventHandler<SomethingHappendedEvent>, SomethingHappenedEventHandler>();
+                    services.AddScoped<IEventHandler<ISomethingHappenedEvent>, SomethingHappenedEventHandler>();
                     
                     services.AddHostedService<EventConsumerWorker>();
                 });

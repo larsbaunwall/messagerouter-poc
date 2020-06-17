@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using EasyNetQ;
 using EventConsumer.Messages;
@@ -9,7 +10,7 @@ namespace EventConsumer
     public class EventConsumerWorker : IHostedService 
     
     {
-        private readonly string _subscriberId = "EventConsumer1";
+        private readonly string _subscriberId = Environment.MachineName;
         private readonly IBus _messageBus;
         private readonly IEventDispatcher _dispatcher;
 
@@ -21,7 +22,7 @@ namespace EventConsumer
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            AddSubscription<SomethingHappendedEvent>();
+            AddSubscription<ISomethingHappenedEvent>();
             
             return Task.CompletedTask;
         }

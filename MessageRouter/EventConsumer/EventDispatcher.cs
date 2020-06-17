@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using EasyNetQ;
 using EventConsumer.EventHandlers;
 using Microsoft.Extensions.DependencyInjection;
 

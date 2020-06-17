@@ -4,11 +4,11 @@ using EventConsumer.Messages;
 
 namespace EventConsumer.EventHandlers
 {
-    public class SomethingHappenedEventHandler : IEventHandler<SomethingHappendedEvent>
+    public class SomethingHappenedEventHandler : IEventHandler<ISomethingHappenedEvent>
     {
-        public Task Handle(SomethingHappendedEvent @event)
+        public Task Handle(ISomethingHappenedEvent @event)
         {
-            Console.WriteLine($"Message received: {@event.Gratulation}");
+            Console.WriteLine($"Message received: {@event.Gratulation}, {@event.Sender}");
             
             return Task.CompletedTask;
             

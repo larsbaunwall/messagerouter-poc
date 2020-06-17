@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeferralService", "Deferral
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventConsumer", "EventConsumer\EventConsumer.csproj", "{7E2741E8-5EA9-48FE-A953-E120FBD0D005}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventProducer", "EventProducer\EventProducer.csproj", "{F1CCE508-014E-48BA-983F-84B48199E285}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{7E2741E8-5EA9-48FE-A953-E120FBD0D005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E2741E8-5EA9-48FE-A953-E120FBD0D005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E2741E8-5EA9-48FE-A953-E120FBD0D005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1CCE508-014E-48BA-983F-84B48199E285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1CCE508-014E-48BA-983F-84B48199E285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1CCE508-014E-48BA-983F-84B48199E285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1CCE508-014E-48BA-983F-84B48199E285}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,9 +1,11 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EasyNetQ;
+using EasyNetQ.Topology;
 using Microsoft.Extensions.Hosting;
 
 namespace DeferralService.Services
@@ -34,8 +36,9 @@ namespace DeferralService.Services
             
             foreach (var (id, message) in messages)
             {
-                _messageBus.Publish(message, message.RecipientQueue);
+                _messageBus.Advanced.Publish(new Exchange(message.RecipientExchange), string.Empty, false, new MessageProperties(), Encoding.UTF8.GetBytes(message.Message));
                 _repo.Dequeue(id);
+                Console.WriteLine($"Published message {id}");
             }
         }
 

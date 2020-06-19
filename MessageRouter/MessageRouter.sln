@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventConsumer", "EventConsu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventProducer", "EventProducer\EventProducer.csproj", "{F1CCE508-014E-48BA-983F-84B48199E285}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging.Support", "Messaging.Support\Messaging.Support.csproj", "{FE5CD769-0990-42D9-923A-A04D5CEE8ECC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{F1CCE508-014E-48BA-983F-84B48199E285}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1CCE508-014E-48BA-983F-84B48199E285}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1CCE508-014E-48BA-983F-84B48199E285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE5CD769-0990-42D9-923A-A04D5CEE8ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5CD769-0990-42D9-923A-A04D5CEE8ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5CD769-0990-42D9-923A-A04D5CEE8ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5CD769-0990-42D9-923A-A04D5CEE8ECC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

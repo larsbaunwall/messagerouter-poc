@@ -1,30 +1,32 @@
 ﻿using System;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using EasyNetQ;
-using EventConsumer.Messages;
+using EasyNetQ.Topology;
+using EventConsumer.SubscribedLanguage;
+using EventConsumer.SubscribedLanguage.GalacticEmpireBC;
+using Messaging.Support;
 using Microsoft.Extensions.Hosting;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace EventConsumer
 {
     public class EventConsumerWorker : IHostedService 
     
     {
-        private readonly string _subscriberId = Environment.MachineName;
-        private readonly IBus _messageBus;
-        private readonly IEventDispatcher _dispatcher;
+        private readonly IEventConsumer _eventConsumer;
 
-        public EventConsumerWorker(IBus messageBus, IEventDispatcher dispatcher)
+        public EventConsumerWorker(IEventConsumer eventConsumer)
         {
-            _messageBus = messageBus;
-            _dispatcher = dispatcher;
+            _eventConsumer = eventConsumer;
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
-            AddSubscription<ISomethingHappenedEvent>();
-            
-            return Task.CompletedTask;
+            await _eventConsumer.AddSubscription<Greeting>("GalacticEmpireBC", "Events.Greeting");
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
@@ -32,10 +34,5 @@ namespace EventConsumer
             return Task.CompletedTask;
         }
 
-        private void AddSubscription<TEvent>()
-            where TEvent: class
-        {
-            _messageBus.SubscribeAsync<TEvent>(_subscriberId, _dispatcher.HandleEvent);
-        }
     }
 }

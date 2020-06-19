@@ -1,5 +1,6 @@
 ﻿using System;
 using EasyNetQ;
+using Messaging.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -18,7 +19,8 @@ namespace EventProducer
                 {
                     services.RegisterEasyNetQ("host=localhost:32779;username=guest;password=guest;product=EventProducer1");
 
-                    services.AddScoped<IConventions, RabbitConventions>();
+                    services.AddScoped<IEventPublisher, EventPublisher>(provider =>
+                        new EventPublisher(provider.GetService<IAdvancedBus>(), "GalacticEmpireBC"));
                     
                     services.AddHostedService<EventProducerWorker>();
                 });

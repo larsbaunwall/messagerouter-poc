@@ -22,7 +22,7 @@ namespace Messaging.Support
                 ExchangeType.Topic);
             
             var envelope = new Envelope<T>(_boundedContextName, message, sequence);
-            await _messageBus.PublishAsync(exchange, "", false, new Message<Envelope<T>>(envelope, new MessageProperties(){ContentType = "text/json"}));
+            await _messageBus.PublishAsync(exchange, "", false, new Message<Envelope<T>>(envelope, new EasyNetQ.MessageProperties {ContentType = "text/json"}));
         }
     }
 }

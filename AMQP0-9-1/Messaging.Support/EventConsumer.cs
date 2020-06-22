@@ -33,7 +33,9 @@ namespace Messaging.Support
                 var msg = Encoding.UTF8.GetString(bytes);
                 var envelope = System.Text.Json.JsonSerializer.Deserialize<Envelope<TEvent>>(msg);
                 
-                await _eventDispatcher.HandleEvent(envelope, properties);
+                var props = new MessageProperties();
+                properties.CopyTo(props);
+                await _eventDispatcher.HandleEvent(envelope, props);
             });
         }
     }

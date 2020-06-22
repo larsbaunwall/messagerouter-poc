@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EasyNetQ;
 using EventConsumer.EventHandlers;
 using Messaging.Support;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +15,7 @@ namespace EventConsumer
             _services = services;
         }
         
-        public async Task HandleEvent<TEvent>(Envelope<TEvent> @event, MessageProperties properties = null)
+        public async Task HandleEvent<TEvent>(Envelope<TEvent> @event, IMessageProperties properties = null)
         {
             var eventHandler = _services.GetService<IEventHandler<TEvent>>();
             await eventHandler.Handle(@event, properties);

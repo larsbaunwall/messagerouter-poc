@@ -17,11 +17,11 @@ namespace EventProducer
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.RegisterEasyNetQ("host=localhost:32779;username=guest;password=guest;product=EventProducer1");
+                    services.ConfigureMessaging(
+                        "host=localhost:32779;username=guest;password=guest;product=EventProducer1",
+                        "GalacticEmpireBC",
+                        "EventProducer1");
 
-                    services.AddScoped<IEventPublisher, EventPublisher>(provider =>
-                        new EventPublisher(provider.GetService<IAdvancedBus>(), "GalacticEmpireBC"));
-                    
                     services.AddHostedService<EventProducerWorker>();
                 });
     }

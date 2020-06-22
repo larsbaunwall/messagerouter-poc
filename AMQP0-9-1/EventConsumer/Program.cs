@@ -20,15 +20,12 @@ namespace EventConsumer
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.RegisterEasyNetQ("host=localhost:32779;username=guest;password=guest;product=EventConsumer1");
+                    services.ConfigureMessaging(
+                        "host=localhost:32779;username=guest;password=guest;product=EventConsumer1",
+                        "RebelAllianceBC",
+                        "EventConsumer1");
 
                     services.AddScoped<IEventDispatcher, EventDispatcher>();
-                    services.AddScoped<IEventConsumer, Messaging.Support.EventConsumer>(provider =>
-                        new Messaging.Support.EventConsumer(
-                            provider.GetService<IAdvancedBus>(), 
-                            provider.GetService<IEventDispatcher>(), 
-                            "RebelAllianceBC",
-                            $"EventConsumer1.{Environment.MachineName}"));
                     services.AddScoped<IEventHandler<Greeting>, SomethingHappenedEventHandler>();
                     
                     services.AddHostedService<EventConsumerWorker>();

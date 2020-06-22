@@ -17,7 +17,7 @@ servers:
       - user-password: []
 channels:
   GalacticEmpireBC.Events.Greeting:
-    subscribe:
+    publish:
       summary: Send out a greeting to the people of the empire.
       message:
         $ref: '#/components/messages/GalacticEmpireBC.Events.Greeting'

@@ -16,15 +16,15 @@ servers:
     security:
       - user-password: []
 channels:
-  GalacticBC.Events.Greeting:
+  GalacticEmpireBC.Events.Greeting:
     subscribe:
       summary: Send out a greeting to the people of the empire.
       message:
-        $ref: '#/components/messages/GalacticBC.Events.Greeting'
+        $ref: '#/components/messages/GalacticEmpireBC.Events.Greeting'
 components:
   messages:
-    GalacticBC.Events.Greeting:
-      name: GalacticBC.Events.Greeting
+    GalacticEmpireBC.Events.Greeting:
+      name: GalacticEmpireBC.Events.Greeting
       payload:
         type: object
         properties:

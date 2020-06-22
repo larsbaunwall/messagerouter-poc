@@ -15,7 +15,9 @@ namespace EventProducer
     {
         private readonly IEventPublisher _eventPublisher;
         private Timer _timer;
-        private int msgNo = 1;
+        private int _msgNo = 1;
+        private string[] _greetings = new[] {"Merry Christmas", "Happy Easter", "Have a nice vacation", "Happy Fathers Day", "Happy birthday to you!"};
+        private string[] _senders = new[] {"Lord Vader", "S. Palpatine", "B. Fett", "Uncle Dooku"};
 
         public EventProducerWorker(IEventPublisher eventPublisher)
         {
@@ -30,11 +32,16 @@ namespace EventProducer
 
         private void DoWork(object state)
         {
-            Console.WriteLine($"Publishing message #{msgNo}");
-            var msg = new Greeting {Gratulation = "Merry Christmas!", Sender = $"D. Vader"};
+            var rnd = new Random();
+            Console.WriteLine($"Publishing message #{_msgNo}");
+            var msg = new Greeting
+            {
+                Gratulation = _greetings[rnd.Next(0, _greetings.Length)], 
+                Sender = _senders[rnd.Next(0, _senders.Length)]
+            };
 
-            _eventPublisher.Publish("Events.Greeting", msg, msgNo);
-            msgNo++;
+            _eventPublisher.Publish("Events.Greeting", msg, _msgNo);
+            _msgNo++;
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

@@ -31,7 +31,6 @@ namespace Messaging.Support
             return _messageBus.Consume(queue, async (bytes, properties, info) =>
             {
                 var msg = Encoding.UTF8.GetString(bytes);
-                Console.WriteLine(msg);
                 var envelope = System.Text.Json.JsonSerializer.Deserialize<Envelope<TEvent>>(msg);
                 
                 await _eventDispatcher.HandleEvent(envelope, properties);

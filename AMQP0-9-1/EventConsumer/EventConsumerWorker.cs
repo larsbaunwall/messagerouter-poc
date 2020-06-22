@@ -1,16 +1,8 @@
-﻿using System;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using EasyNetQ;
-using EasyNetQ.Topology;
-using EventConsumer.SubscribedLanguage;
 using EventConsumer.SubscribedLanguage.GalacticEmpireBC;
 using Messaging.Support;
 using Microsoft.Extensions.Hosting;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace EventConsumer
 {

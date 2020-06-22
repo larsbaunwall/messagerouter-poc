@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using EasyNetQ;
-using EventConsumer.SubscribedLanguage;
 using EventConsumer.SubscribedLanguage.GalacticEmpireBC;
 using Messaging.Support;
 

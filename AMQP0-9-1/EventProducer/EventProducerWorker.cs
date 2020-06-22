@@ -1,13 +1,9 @@
 using System;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using EasyNetQ;
-using EasyNetQ.Topology;
 using EventProducer.PublishedLanguage;
 using Messaging.Support;
 using Microsoft.Extensions.Hosting;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace EventProducer
 {

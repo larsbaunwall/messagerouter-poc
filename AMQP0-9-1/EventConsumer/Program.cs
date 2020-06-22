@@ -1,7 +1,4 @@
-﻿using System;
-using EasyNetQ;
-using EventConsumer.EventHandlers;
-using EventConsumer.SubscribedLanguage;
+﻿using EventConsumer.EventHandlers;
 using EventConsumer.SubscribedLanguage.GalacticEmpireBC;
 using Messaging.Support;
 using Microsoft.Extensions.DependencyInjection;

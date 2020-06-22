@@ -1,7 +1,4 @@
-﻿using System;
-using EasyNetQ;
-using Messaging.Support;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace EventProducer

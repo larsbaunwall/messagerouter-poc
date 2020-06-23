@@ -1,0 +1,39 @@
+asyncapi: '2.0.0'
+info:
+  title: Rebel Alliance BC
+  version: '1.0.0'
+  description: |
+    The Alliance Will Never Surrender
+servers:
+  production:
+    url: localhost
+    variables:
+      port:
+        default: '32779'
+        description: Default AMQP port routed through docker
+    protocol: amqp
+    description: Docker-based AMQP-broker
+    security:
+      - user-password: []
+channels:
+  GalacticEmpireBC.Events.Greeting:
+    publish:
+      summary: Send out a greeting to the people of the empire.
+      message:
+        $ref: '#/components/messages/GalacticEmpireBC.Events.Greeting'
+components:
+  messages:
+    GalacticEmpireBC.Events.Greeting:
+      name: GalacticEmpireBC.Events.Greeting
+      payload:
+        type: object
+        properties:
+          sender:
+            type: string
+            description: Formal sender (person) of the message
+          gratulation:
+            type: string
+            description: Written message
+  securitySchemes:
+    user-password:
+      type: userPassword

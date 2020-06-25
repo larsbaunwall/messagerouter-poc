@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "description": "Platform envelope",
+    "type": "object",
+    "required": ["correlationId", "sequence", "sourceBC"],
+    "properties": {
+        "correlationId": {
+            "type": "string"
+        },
+        "messageId": {
+            "type": "string"
+        },
+        "sourceBC": {
+            "type": "string"
+        },
+        "sequence": {
+            "type": "integer"
+        },
+        "payload": {
+            "type": "object"
+        }
+    }
+}

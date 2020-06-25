@@ -3,7 +3,7 @@
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "description": "Schema definition for the Galactic greeting",
     "type": "object",
-    "allOf": [{ "$ref": "/../../platform/envelope.json" }],
+    "allOf": [{ "$ref": "https://raw.githubusercontent.com/larsbaunwall/messagerouter-sample/master/schemas/platform/envelope.json" }],
     "properties": { 
         "payload": { "$ref": "#/definitions/payload"}
     },

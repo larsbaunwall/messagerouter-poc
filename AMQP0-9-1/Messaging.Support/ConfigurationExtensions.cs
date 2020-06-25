@@ -1,6 +1,7 @@
 using System;
 using EasyNetQ;
 using Messaging.Support;
+using Messaging.Support.Validation;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -17,18 +18,24 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(serviceCollection));
             }
             
-            serviceCollection.RegisterEasyNetQ(brokerConnectionString);
+            serviceCollection.RegisterEasyNetQ(brokerConnectionString, register =>
+            {
+                register.Register<ISerializer, NativeSerializer>();
+            });
             
             serviceCollection.AddScoped<IEventConsumer, EventConsumer>(provider =>
                 new EventConsumer(
                     provider.GetService<IAdvancedBus>(), 
                     provider.GetService<IEventDispatcher>(), 
+                    provider.GetService<ISchemaValidator>(),
                     boundedContextName,
                     $"{serviceName}.{Environment.MachineName}"));
             
             serviceCollection.AddScoped<IEventPublisher, EventPublisher>(provider =>
                 new EventPublisher(provider.GetService<IAdvancedBus>(),
                     boundedContextName));
+
+            serviceCollection.AddSingleton<ISchemaValidator, JsonSchemaValidator>();
             
             return serviceCollection;
         }

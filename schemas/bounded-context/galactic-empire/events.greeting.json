@@ -14,7 +14,7 @@
                 "sender": {
                     "type": "string"
                 },
-                "greeting": {
+                "gratulation": {
                     "type": "string"
                 }
             },

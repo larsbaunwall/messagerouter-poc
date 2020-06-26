@@ -1,8 +1,8 @@
 {
     "$id": "https://raw.githubusercontent.com/larsbaunwall/messagerouter-sample/master/schemas/platform/envelope.json",
     "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "title": "",
-    "description": "Platform envelope",
+    "title": "Routing envelope",
+    "description": "Metadata envelope used for all messages routed via the message router",
     "type": "object",
     "required": ["correlationId", "sequence", "sourceBC"],
     "properties": {
@@ -10,8 +10,7 @@
             "type": "string"
         },
         "messageId": {
-            "type": "string",
-            
+            "type": "string"            
         },
         "sourceBC": {
             "type": "string"

@@ -56,3 +56,13 @@ Interested consumers should declare a private queue in the format `<Source Bound
 A consumer `RebelAllianceBC` listening for the `Events.Greeting` message from `GalacticEmpireBC` will therefore declare a private queue `GalacticEmpireBC.Events.Greeting:RebelAlliance.EventConsumerService1-myhost1`
 
 The sample supports a competing consumer pattern by sharing the consumer queue (same name) among multiple consumers.
+
+## Message schema validation
+
+All messages are described in a JSON schema and placed in the `/schemas/bounded-context/` folder. This enables us to validate message integrity when sending and when receiving a message, if needed.
+
+The message JSON schema references the `/schemas/platform/envelope.json` schema for metadata fields and applies individual constraints to the `payload` field only.
+
+The sample currently validates JSON schema on consumption and drops messages if they are not compliant with the defined schema annotated with the `JsonSchemaAttribute`. Dropped messages will go to the dead letter queue.
+
+This might not be exactly the way you'd want to do schema validation in your solution, as it is quite strictly implemented in this library. If, how and when to validate schemas should be up to the individual consumer, or it should be a feature embedded in the AMQP broker instead through a schema repository.

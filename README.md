@@ -18,7 +18,51 @@ The AMQP 0.9.1 version is based on the [EasyNetQ library](https://github.com/Eas
 
 ## AMQP 1.0
 
-I am working on an AMQP 1.0 version as well, stay tuned :)
+The AMQP 1.0 version of this sample is available in the `AMQP1-0` folder. AMQP 1.0 is very different from prior versions (it's essentially a complete rewrite), so some of the terminology is different in this sample as well. 
+
+The goal of the 1.0 sample is to be able to seamlessly switch between Apache MQ and Azure Servicebus without requiring code changes.
+
+The AMQP 1.0 sample is implemented on top of the [AMQP.NET Lite library](https://github.com/Azure/amqpnetlite) by Microsoft
+
+# Architecture of the samples
+
+The samples consists of two bounded contexts, exchanging messages over a message broker:
+
+```
+┌───────────────────┐  ┌────────────────────┐   ┌───────────────────┐
+│                   │  │                    │   │                   │
+│                   │  │                    │   │                   │
+│<<Bounded Context>>│  │      <<AMQP>>      │   │<<Bounded Context>>│
+│   GalaticEmpire   │─▶│   Message broker   │◀──│   RebelAlliance   │
+│                   │  │                    │   │                   │
+│                   │  │                    │   │                   │
+└───────────────────┘  └────────────────────┘   └───────────────────┘
+```
+
+The message brokering platform will contain a few supporting services besides the routing component itself:
+
+- A `reconstitution service proxy` responsible for delegating requests for reconstitution to the producing bounded context
+- A `schema registry` serving as documentation for the published language sent over the broker (this is currently just a repo folder (/schemas) with JSON schemas)
+- A `message deferrer service` for scheduled future delivery of a message. Vendor-specific AMQP-extensions for this exists, but as the samples try to stay as clean to the OASIS-definition as possible, these extensions are not implemented
+
+```
+┌─────────────────┐ ┌─────────────────┐ ┌────────────────┐
+│                 │ │                 │ │                │
+│                 │ │                 │ │                │
+│ Reconstitution  │ │ Schema registry │ │Message Deferrer│
+│  service proxy  │ │                 │ │    service     │
+│                 │ │                 │ │                │
+│                 │ │                 │ │                │
+└─────────────────┘ └─────────────────┘ └────────────────┘
+┌────────────────────────────────────────────────────────┐
+│                                                        │
+│                                                        │
+│                        <<AMQP>>                        │
+│                     Message broker                     │
+│                                                        │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
 
 # How can I contribute?
 

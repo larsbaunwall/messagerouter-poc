@@ -21,6 +21,22 @@ namespace Messaging.Support
         {
             var exchange = await _messageBus.ExchangeDeclareAsync(NamingConventions.ExchangeNamingConvention(_boundedContextName, publishedLanguageEntity),
                 ExchangeType.Topic);
+
+            await Publish(exchange, "", message, sequence);
+        }
+
+        public async Task Publish<T>(string exchange, string routingKey, Envelope<T> message)
+        {
+            await _messageBus.PublishAsync(new Exchange(exchange), routingKey, true, new Message<Envelope<T>>(message, new EasyNetQ.MessageProperties
+            {
+                ContentType = "application/json", 
+                CorrelationId = message.CorrelationId, 
+                MessageId = message.MessageId,
+            }));
+        }
+
+        private async Task Publish<T>(IExchange exchange, string routingKey, T message, long sequence)
+        {
             var correlationId = Guid.NewGuid().ToString("N");
             var messageId = Guid.NewGuid().ToString("N");
             
@@ -33,7 +49,7 @@ namespace Messaging.Support
                 ContentType = "application/json", 
                 CorrelationId = correlationId, 
                 MessageId = messageId
-            }));
+            }));        
         }
     }
 }

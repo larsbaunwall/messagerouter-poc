@@ -1,8 +1,6 @@
 using System;
-using System.Threading.Tasks;
 using DeferralService.Models;
 using DeferralService.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeferralService.Controllers

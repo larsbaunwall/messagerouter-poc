@@ -1,11 +1,8 @@
 using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using EasyNetQ;
-using EasyNetQ.Topology;
+using Messaging.Support;
 using Microsoft.Extensions.Hosting;
 
 namespace DeferralService.Services
@@ -13,13 +10,13 @@ namespace DeferralService.Services
     public class DeferrerWorker : IHostedService
     {
         private readonly IDeferralRepository _repo;
-        private readonly IBus _messageBus;
+        private readonly IEventPublisher _publisher;
         private Timer _timer;
 
-        public DeferrerWorker(IDeferralRepository repo, IBus messageBus)
+        public DeferrerWorker(IDeferralRepository repo, IEventPublisher publisher)
         {
             _repo = repo;
-            _messageBus = messageBus;
+            _publisher = publisher;
         }
         
         public Task StartAsync(CancellationToken cancellationToken)
@@ -36,9 +33,8 @@ namespace DeferralService.Services
             
             foreach (var (id, message) in messages)
             {
-                _messageBus.Advanced.Publish(new Exchange(message.RecipientExchange), string.Empty, false, new MessageProperties(), Encoding.UTF8.GetBytes(message.Message));
+                _publisher.Publish(message.RecipientExchange, message.RoutingKey, message.OriginalMessage);
                 _repo.Dequeue(id);
-                Console.WriteLine($"Published message {id}");
             }
         }
 
